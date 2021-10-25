@@ -1,3 +1,4 @@
+[![Build application](https://github.com/OnlyDeniko/QuantumComputingCourse/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/OnlyDeniko/QuantumComputingCourse/actions/workflows/main.yml)
 # QuantumComputingCourse
 
 ## 1. Build the project with `CMake`
