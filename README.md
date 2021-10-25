@@ -14,8 +14,6 @@ Navigate to a source code folder.
 2) Build the project:
   ```
   cmake --build . --config RELEASE
-  cmake --build . --config DEBUG
-  cmake --build .
   ```
   To build only your project, you need to do the following:
   ```
