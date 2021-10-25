@@ -1,0 +1,71 @@
+name: Build application
+
+on: [push, pull_request]
+
+jobs:
+  ubuntu-gcc-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install g++-9
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake -D CMAKE_BUILD_TYPE=RELEASE ..
+        cmake --build . --config -j4
+        cd ..
+      env:
+        CC: gcc-9
+        CXX: g++-9
+  ubuntu-clang-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+        sudo apt-get update
+        sudo apt-get install clang-8
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake -D CMAKE_BUILD_TYPE=RELEASE ..
+        cmake --build . --config -j4
+        cd ..
+      env:
+        CC: clang-8
+        CXX: clang++-8
+  macos-clang-build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup environment
+      run: |
+        brew update-reset
+    - name: Build
+      run: |
+        export LDFLAGS="$LDFLAGS -L$(brew --prefix libomp)/lib"
+        export CFLAGS="$CFLAGS -I$(brew --prefix libomp)/include -I$(brew --prefix tbb)/include"
+        export CXXFLAGS="$CXXFLAGS -I$(brew --prefix libomp)/include -I$(brew --prefix tbb)/include"
+        mkdir build
+        cd build
+        cmake -D CMAKE_BUILD_TYPE=RELEASE ..
+        cmake --build . --config -j4
+        cd ..
+  windows-msvc-build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        mkdir build
+        cd build 
+        cmake -G "Visual Studio 16 2019" .. -A Win32
+        cmake --build .
+      shell: cmd
