@@ -1,16 +1,14 @@
 //#define DEBUG
 //#define tests - если порядок чисел в файле пронумерован 
-#define ll long long int
 const int max_sign_num = 25;
 static int counter_prime = 0;
 static int counter_composite = 0;
 static int countrer_carmichael = 0;
 #include"Operation.h"
-int main(int argc, char* argv[], char** env[])
+int main(int argc, char* argv[], char** env)
 {
   auto start1 = std::chrono::steady_clock::now();
   srand(time(NULL));
-  setlocale(LC_ALL, "rus");
   char* filein = argv[1];
   char* fileout = argv[2];
   std::ofstream fout;
@@ -76,27 +74,27 @@ int main(int argc, char* argv[], char** env[])
     std::string str = std::to_string(numbers[i]);
     auto start = std::chrono::steady_clock::now();
     if (!Farm_s_test(numbers[i])) {
-      fout << str << " [composite] - тест Ферма,\t";
+      fout << str << " [composite] - Farm's test,\t";
     }
     else
     {
       Farm = true;
-     fout << str << " [prime] - тест Ферма, \t";
+     fout << str << " [prime] - Farm's test, \t";
     }
 
     if (!Farm)
     {
-     fout << str << " [composite] - Рабин-Миллер, ";
+     fout << str << " [composite] - Robin-Miller's test, ";
       counter_composite++;
     }
     else if (RobinMiller_test(numbers[i]))
     {
-      fout << str << " [prime] - Рабин-Миллер, ";
+      fout << str << " [prime] - Robin-Miller's test, ";
       counter_prime++;
     }
     else
     {
-      fout << str << " [carmichael] - Рабин-Миллер, ";
+      fout << str << " [carmichael] - Robin-Miller's test, ";
       countrer_carmichael++;
     }
 
@@ -112,12 +110,11 @@ int main(int argc, char* argv[], char** env[])
   /////////////////////////////////////////////
   auto end1 = std::chrono::steady_clock::now();
   std::chrono::duration<double> elapsed_seconds = end1 - start1;
-  std::cout << "Полное время работы программы = " << elapsed_seconds.count() * 1000 << "ms\n";
-  std::cout << "Составных чисел = " <<counter_composite << "\n";
-  std::cout << "Простых чисел = " << counter_prime << "\n";
-  std::cout << "Чисел Кармайкла = " << countrer_carmichael << "\n";
-  std::cout << "Самая долгая проверка = " << max*1000 << "ms\n";
-  std::cout << "Средняя проверка = " << medium/numbers.size()*1000 << "ms\n";
+  std::cout << "composite numbers = " <<counter_composite << "\n";
+  std::cout << "prime numbers = " << counter_prime << "\n";
+  std::cout << "carmichael numbers = " << countrer_carmichael << "\n";
+  std::cout << "the longest check = " << max*1000 << "ms\n";
+  std::cout << "average check = " << medium/numbers.size()*1000 << "ms\n";
   //fout.close();
   return 0;
 }
