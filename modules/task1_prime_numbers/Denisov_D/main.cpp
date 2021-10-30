@@ -1,5 +1,5 @@
 //#define DEBUG
-//#define tests - если порядок чисел в файле пронумерован 
+//#define tests
 const int max_sign_num = 25;
 static int counter_prime = 0;
 static int counter_composite = 0;
