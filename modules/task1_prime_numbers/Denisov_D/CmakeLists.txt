@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.21.3 FATAL_ERROR)
+project(test_cmake)
+
+add_executable(check_numbers main.cpp)
