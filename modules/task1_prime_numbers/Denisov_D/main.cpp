@@ -7,7 +7,6 @@ static int countrer_carmichael = 0;
 #include"Operation.h"
 int main(int argc, char* argv[], char** env)
 {
-  auto start1 = std::chrono::steady_clock::now();
   srand(time(NULL));
   char* filein = argv[1];
   char* fileout = argv[2];
@@ -109,7 +108,6 @@ int main(int argc, char* argv[], char** env)
   }
   /////////////////////////////////////////////
   auto end1 = std::chrono::steady_clock::now();
-  std::chrono::duration<double> elapsed_seconds = end1 - start1;
   std::cout << "composite numbers = " <<counter_composite << "\n";
   std::cout << "prime numbers = " << counter_prime << "\n";
   std::cout << "carmichael numbers = " << countrer_carmichael << "\n";
