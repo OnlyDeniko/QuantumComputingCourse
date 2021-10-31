@@ -107,7 +107,6 @@ int main(int argc, char* argv[], char** env)
     fout.close();
   }
   /////////////////////////////////////////////
-  auto end1 = std::chrono::steady_clock::now();
   std::cout << "composite numbers = " <<counter_composite << "\n";
   std::cout << "prime numbers = " << counter_prime << "\n";
   std::cout << "carmichael numbers = " << countrer_carmichael << "\n";
