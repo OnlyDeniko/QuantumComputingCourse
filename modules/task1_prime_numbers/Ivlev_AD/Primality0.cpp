@@ -1,25 +1,24 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <chrono>
+#include <random>
 
 unsigned long long int ModMul(unsigned long long int a, unsigned long long int b, unsigned long long int M)
 {
-    if (a >= 100000 && b >= 100000)
-    {
-        unsigned long long int z = ModMul(a, b / 2, M);
+    unsigned long long int z = ModMul(a, b / 2, M);
 
-        if (b % 2 == 0)
-        {
-            return ((2 * z) % M);
-        }
-        else
-        {
-            return ((a + ((2 * z) % M)) % M);
-        }
+    if (b == 0)
+    {
+        return 0;
+    }
+
+    if (b % 2 == 0)
+    {
+        return ((2 * z) % M);
     }
     else
     {
-        return (a * b) % M;
+        return ((a + ((2 * z) % M)) % M);
     }
 }
 
@@ -50,7 +49,10 @@ void PrimalityFerma0(unsigned long long int pnum, std::ofstream& out)
 
     if (pnum % 2 != 0 && pnum % 3 != 0)
     {
-        unsigned long long int RandNum = 2 + rand() % (pnum - 2);
+        //unsigned long long int RandNum = 2 + rand() % (pnum - 2);
+        std::mt19937 gen(128);
+        std::uniform_int_distribution<unsigned long long int> uid(2, pnum - 2);
+        unsigned long long int RandNum = uid(gen);
         RandNum = ModExp(RandNum, pnum - 1, pnum);
 
         if (RandNum != 1)
@@ -89,7 +91,10 @@ void PrimalityFerma1(unsigned long long int pnum, std::ofstream& out)
 
     if (pnum % 2 != 0 && pnum % 3 != 0)
     {
-        unsigned long long int RandNum = 2 + rand() % (pnum - 2);
+        //unsigned long long int RandNum = 2 + rand() % (pnum - 2);
+        std::mt19937 gen(128);
+        std::uniform_int_distribution<unsigned long long int> uid(2, pnum - 2);
+        unsigned long long int RandNum = uid(gen);
 
         for (size_t i = 0; i < 10; i++)
         {
@@ -99,7 +104,8 @@ void PrimalityFerma1(unsigned long long int pnum, std::ofstream& out)
                 check = 1;
                 break;
             }
-            RandNum = 2 + rand() % (pnum - 2);
+            //RandNum = 2 + rand() % (pnum - 2);
+            RandNum = uid(gen);
         }
     }
     else
@@ -135,7 +141,11 @@ void PrimalityMillerRabin(unsigned long long int pnum, std::ofstream& out)
     {
         for (size_t k = 0; k < 10; k++)
         {
-            unsigned long long int RandNum = 2 + rand() % (pnum - 2);
+            //unsigned long long int RandNum = 2 + rand() % (pnum - 2);
+            std::mt19937 gen(128);
+            std::uniform_int_distribution<unsigned long long int> uid(2, pnum - 2);
+            unsigned long long int RandNum = uid(gen);
+
             unsigned long long int RandNumM = ModExp(RandNum, pnum - 1, pnum);
 
             if (RandNumM == 1)
