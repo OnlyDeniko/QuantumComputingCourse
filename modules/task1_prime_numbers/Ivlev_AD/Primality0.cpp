@@ -5,12 +5,12 @@
 
 unsigned long long int ModMul(unsigned long long int a, unsigned long long int b, unsigned long long int M)
 {
-    unsigned long long int z = ModMul(a, b / 2, M);
-
-    if (a == 0 || b == 0)
+    if (b == 0)
     {
         return 0;
     }
+
+    unsigned long long int z = ModMul(a, b / 2, M);
 
     if (b % 2 == 0)
     {
