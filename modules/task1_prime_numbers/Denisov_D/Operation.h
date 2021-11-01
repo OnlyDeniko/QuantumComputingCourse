@@ -7,6 +7,7 @@
 #include<string>
 #include <chrono>
 #include<ctime>
+#include<random>
 ll Mult(ll x, ll y, ll N);
 ll NOD(ll x, ll y);
 ll mod_pow(ll x, ll y, ll N);

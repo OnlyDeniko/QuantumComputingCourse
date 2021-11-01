@@ -90,7 +90,12 @@ bool RobinMiller_test(ll number)
   for (int i = 0; i < tryes; i++)
   {
     bool f = false;
-    ll temp = rand() % (number - 3) + 2;
+    
+    std::mt19937 gen;
+    std::uniform_int_distribution<ll> uid(2, number-2);
+    gen.seed(rand());
+    ll temp = uid(gen);
+
     ll x = mod_pow(temp, alpha, number);
     if (x == 1 || x == number - 1)
       continue;
