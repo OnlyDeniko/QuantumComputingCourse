@@ -23,17 +23,25 @@ ll NOD(ll x, ll y)
 
 ll mod_pow(ll x, ll y, ll N)
 {
-  if (y == 0)
-    return 1;
-  ll z = mod_pow(x, y / 2, N);
-  if (y % 2 == 0)
+  ll temp_x = 1, ans = y, save_y = y;
+  while (x != 1)
   {
-    z = Mult(z, z, N);
-    return z;
+    if (temp_x * 2 < x)
+    {
+      y *= y;
+      y %= N;
+      temp_x *= 2;
+    }
+    else
+    {
+      x -= temp_x;
+      temp_x = 1;
+      ans *= y;
+      ans %= N;
+      y = save_y;
+    }
   }
-  z = Mult(z, z, N);
-  z = Mult(z, x, N);
-  return z;
+  return ans;
 }
 
 
