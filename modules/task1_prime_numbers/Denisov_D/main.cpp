@@ -25,7 +25,7 @@ int main(int argc, char* argv[], char** env)
 #else
   fout.open("output_file.txt");
   fout.close();
-  fin.open("carmichael1.txt");
+  fin.open("carmichael3.txt");
 #endif //DEBUG
   if (!fin.is_open())
   {
@@ -83,7 +83,7 @@ int main(int argc, char* argv[], char** env)
 
     if (!Farm)
     {
-     fout << str << " [composite] - Robin-Miller's test, ";
+    fout << str << " [composite] - Robin-Miller's test, ";
       counter_composite++;
     }
     else if (RobinMiller_test(numbers[i]))

@@ -1,17 +1,15 @@
 #include"Operation.h"
 ll Mult(ll x, ll y, ll N)
 {
-  ll ans = 0;
-  while (x != 0) {
-    if (x % 2 == 1)
-      ans += y;
-    ans %= N;
-
-    x >>= 1;
-    y <<= 1;
-    y %= N;
-  }
-  return ans;
+  if (y == 0)
+    return 0;
+  ll z = Mult(x, y / 2, N);
+  if (z > N)
+    z %= N;
+  if (y % 2 == 0)
+    return z + z;
+  else
+    return x + z + z;
 }
 
 ll NOD(ll x, ll y)
@@ -23,25 +21,18 @@ ll NOD(ll x, ll y)
 
 ll mod_pow(ll x, ll y, ll N)
 {
-  ll temp_x = 1, ans = y, save_y = y;
-  while (x != 1)
+  if (y == 0)
+    return 1;
+  ll z = mod_pow(x, y / 2, N);
+  if (y % 2 == 0)
   {
-    if (temp_x * 2 < x)
-    {
-      y *= y;
-      y %= N;
-      temp_x *= 2;
-    }
-    else
-    {
-      x -= temp_x;
-      temp_x = 1;
-      ans *= y;
-      ans %= N;
-      y = save_y;
-    }
+    z = Mult(z, z, N);
+    return z % N;
   }
-  return ans;
+  z = Mult(z, z, N);
+  z %= N;
+  z = Mult(z, x, N);
+  return z % N;
 }
 
 
@@ -52,7 +43,7 @@ bool Farm_s_test(ll number)
   int counter = 0, attempts = 3;
   while (counter <= attempts)
   {
-    ll temp = counter + 2;
+    ll temp = (ll)counter + 2;
     if (NOD(temp, number) != 1)
     {
       attempts++;
@@ -78,9 +69,9 @@ bool RobinMiller_test(ll number)
   for (int i = 0; i < tryes; i++)
   {
     bool f = false;
-    
+
     std::mt19937 gen;
-    std::uniform_int_distribution<ll> uid(2, number-2);
+    std::uniform_int_distribution<ll> uid(2, number - 2);
     gen.seed(rand());
     ll temp = uid(gen);
 
