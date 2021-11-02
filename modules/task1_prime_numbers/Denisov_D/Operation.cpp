@@ -1,33 +1,17 @@
 #include"Operation.h"
 ll Mult(ll x, ll y, ll N)
 {
- /* ll temp_x = 1, ans = y, save_y = y;//works much longer
-  while (x != 1)
-  {
-    if (temp_x * 2 < x) {
-      y += y;
-      y %= N;
-      temp_x *= 2;
-    }
-    else
-    {
-      x -= temp_x;
-      temp_x = 1;
-      ans = ans + y;
-      ans %= N;
-      y = save_y;
-    }
+  ll ans = 0;
+  while (x != 0) {
+    if (x % 2 == 1)
+      ans += y;
+    ans %= N;
+
+    x >>= 1;
+    y <<= 1;
+    y %= N;
   }
-  return ans;*/
-  if (y == 0)
-    return 0;
-  ll z = Mult(x, y / 2, N);
-  if (z > N)
-    z %= N;
-  if (y % 2 == 0)
-    return z + z;
-  else
-    return x + z + z;
+  return ans;
 }
 
 ll NOD(ll x, ll y)
@@ -45,14 +29,10 @@ ll mod_pow(ll x, ll y, ll N)
   if (y % 2 == 0)
   {
     z = Mult(z, z, N);
-    return z % N;
+    return z;
   }
   z = Mult(z, z, N);
-  if (z > N)
-    z %= N;
   z = Mult(z, x, N);
-  if (z > N)
-    z %= N;
   return z;
 }
 
