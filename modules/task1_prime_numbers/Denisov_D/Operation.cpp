@@ -2,14 +2,20 @@
 ll Mult(ll x, ll y, ll N)
 {
   if (y == 0)
+  {
     return 0;
-  ll z = Mult(x, y / 2, N);
-  if (z > N)
-    z %= N;
+  }
+
+ ll z = Mult(x, y / 2, N);
+
   if (y % 2 == 0)
-    return z + z;
+  {
+    return ((2 * z) % N);
+  }
   else
-    return x + z + z;
+  {
+    return ((x + ((2 * z) % N)) % N);
+  }
 }
 
 ll NOD(ll x, ll y)
@@ -19,20 +25,16 @@ ll NOD(ll x, ll y)
   return NOD(y, x % y);
 }
 
-ll mod_pow(ll x, ll y, ll N)
-{
-  if (y == 0)
-    return 1;
-  ll z = mod_pow(x, y / 2, N);
-  if (y % 2 == 0)
-  {
-    z = Mult(z, z, N);
-    return z % N;
+ll mod_pow(ll a, ll b, ll N) {
+  ll ans = 1;
+  while (b) {
+    if (b & 1) {
+      ans = Mult(ans, a, N);
+    }
+    b >>= 1;
+    a = Mult(a, a, N);
   }
-  z = Mult(z, z, N);
-  z %= N;
-  z = Mult(z, x, N);
-  return z % N;
+  return ans;
 }
 
 
